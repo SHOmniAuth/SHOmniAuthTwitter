@@ -1,4 +1,3 @@
 platform :ios, '6.0' 
 pod 'BlocksKit'
-pod 'SHOmniAuth', :git => 'https://github.com/seivan/SHOmniAuth.git'
 pod 'SHOmniAuthTwitter', :local => '../'
