@@ -1,0 +1,2 @@
+pod "SHOmniAuth",:git => 'https://github.com/seivan/SHOmniAuth.git'
+pod 'SHOmniAuthTWitter', :local => '../'
