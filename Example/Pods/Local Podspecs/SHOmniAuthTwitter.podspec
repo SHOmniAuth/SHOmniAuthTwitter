@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuthTwitter"
   s.version      = "0.0.1"
-  s.summary      = "Twitter strategy for SHOmniAuth"
+  s.summary      = "Twitter strategy for SHOmniAuth."
   s.description  = <<-DESC
                     A strategy for authenticating with Twitter via SHOmniAuth.
                     Uses reverse authentication and ACAccountStore.
@@ -29,5 +29,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency  'TWReverseAuth'
   s.dependency  'AFOAuth1Client'
+  s.dependency  'SHOmniAuth', :git => "https://github.com/seivan/SHOmniAuth.git", :tag => "0.0.1"
 end
 
