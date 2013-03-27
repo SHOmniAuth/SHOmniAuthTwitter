@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TWAppCredentialStore.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TWAppCredentialStore</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAppCredentialStore.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAppCredentialStore/registerTwitterAppKey:andAppSecret:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAppCredentialStore.h</DeclaredIn>			
+			
+			<Declaration>+ (void)registerTwitterAppKey:(NSString *)theAppKey andAppSecret:(NSString *)theAppSecret</Declaration>
+			
+			
+			<Anchor>//api/name/registerTwitterAppKey:andAppSecret:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAppCredentialStore/twitterAppKey</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAppCredentialStore.h</DeclaredIn>			
+			
+			<Declaration>+ (NSString *)twitterAppKey</Declaration>
+			
+			
+			<Anchor>//api/name/twitterAppKey</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAppCredentialStore/twitterAppSecret</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAppCredentialStore.h</DeclaredIn>			
+			
+			<Declaration>+ (NSString *)twitterAppSecret</Declaration>
+			
+			
+			<Anchor>//api/name/twitterAppSecret</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

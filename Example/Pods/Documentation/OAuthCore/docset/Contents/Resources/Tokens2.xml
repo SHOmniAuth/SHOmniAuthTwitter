@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSURL+OAuthAdditions.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSURL(OAuthAdditions)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>
+			
+			<NodeRef refid="2"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSURL(OAuthAdditions)/ab_parseURLQueryString:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>			
+			
+			<Declaration>+ (NSDictionary *)ab_parseURLQueryString:(NSString *)query</Declaration>
+			
+			
+			<Anchor>//api/name/ab_parseURLQueryString:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSURL(OAuthAdditions)/ab_actualPath</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)ab_actualPath</Declaration>
+			
+			
+			<Anchor>//api/name/ab_actualPath</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

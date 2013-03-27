@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Categories/NSString+OAuthAdditions.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cat/NSString(OAuthAdditions)</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(OAuthAdditions)/ab_GUID</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>			
+			
+			<Declaration>+ (NSString *)ab_GUID</Declaration>
+			
+			
+			<Anchor>//api/name/ab_GUID</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/NSString(OAuthAdditions)/ab_RFC3986EncodedString</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>OAuth+Additions.h</DeclaredIn>			
+			
+			<Declaration>- (NSString *)ab_RFC3986EncodedString</Declaration>
+			
+			
+			<Anchor>//api/name/ab_RFC3986EncodedString</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

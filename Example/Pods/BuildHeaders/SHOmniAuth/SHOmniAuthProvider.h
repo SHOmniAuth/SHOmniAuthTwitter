@@ -1,0 +1,1 @@
+../../SHOmniAuth/SHOmniAuth/SHOmniAuthProvider.h

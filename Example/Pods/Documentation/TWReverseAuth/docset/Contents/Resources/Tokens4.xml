@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Protocols/GenericTwitterRequest.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intf/GenericTwitterRequest</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>
+			
+			<NodeRef refid="4"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/GenericTwitterRequest/performRequestWithHandler:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>- (void)performRequestWithHandler:(SLRequestHandler)handler</Declaration>
+			
+			
+			<Anchor>//api/name/performRequestWithHandler:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/intfm/GenericTwitterRequest/setAccount:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>- (void)setAccount:(ACAccount *)account</Declaration>
+			
+			
+			<Anchor>//api/name/setAccount:</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>
