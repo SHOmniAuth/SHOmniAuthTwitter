@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tokens version="1.0">
+	<File path="Classes/TWAPIManager.html">
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/cl/TWAPIManager</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>
+			
+			<NodeRef refid="1"/>
+		</Token>
+		
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAPIManager/registerTwitterAppKey:andAppSecret:</TokenIdentifier>
+			<Abstract type="html"></Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>+ (void)registerTwitterAppKey:(NSString *)theAppKey andAppSecret:(NSString *)theAppSecret</Declaration>
+			
+			
+			<Anchor>//api/name/registerTwitterAppKey:andAppSecret:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAPIManager/performReverseAuthForAccount:withHandler:</TokenIdentifier>
+			<Abstract type="html">Obtains the access token and secret for |account| using either TWRequest or
+SLRequest.</Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>+ (void)performReverseAuthForAccount:(ACAccount *)account withHandler:(ReverseAuthResponseHandler)handler</Declaration>
+			
+			
+			<Anchor>//api/name/performReverseAuthForAccount:withHandler:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAPIManager/requestWithUrl:parameters:requestMethod:</TokenIdentifier>
+			<Abstract type="html">Returns an instance of either SLRequest or TWRequest, depending on runtime
+availability.</Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>+ (id&lt;GenericTwitterRequest&gt;)requestWithUrl:(NSURL *)url parameters:(NSDictionary *)dict requestMethod:(SLRequestMethod)requestMethod</Declaration>
+			
+			
+			<Anchor>//api/name/requestWithUrl:parameters:requestMethod:</Anchor>
+		</Token>
+		
+		<Token>
+			<TokenIdentifier>//apple_ref/occ/clm/TWAPIManager/isLocalTwitterAccountAvailable</TokenIdentifier>
+			<Abstract type="html">Returns true if there are local Twitter accounts available.</Abstract>
+			<DeclaredIn>TWAPIManager.h</DeclaredIn>			
+			
+			<Declaration>+ (BOOL)isLocalTwitterAccountAvailable</Declaration>
+			
+			
+			<Anchor>//api/name/isLocalTwitterAccountAvailable</Anchor>
+		</Token>
+		
+	</File>
+</Tokens>

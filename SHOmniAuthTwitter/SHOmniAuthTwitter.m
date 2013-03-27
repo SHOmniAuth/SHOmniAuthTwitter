@@ -114,6 +114,7 @@
   
   [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
     if ([error.domain isEqualToString:ACErrorDomain] && error.code ==ACErrorAccountAlreadyExists) {
+      NSLog(@"%@",[accountStore accountsWithAccountType:accountType]);
       account = [accountStore accountsWithAccountType:accountType][0];
       error = nil;
     }
