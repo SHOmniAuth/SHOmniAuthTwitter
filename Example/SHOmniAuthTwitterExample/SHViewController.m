@@ -25,14 +25,18 @@
         pickAccountBlock(account);
       }];
     }];
-    if(accounts.count < 1)
+    NSString * buttonTitle = nil;
+    if(accounts.count > 0)
+      buttonTitle = @"Add account";
+    else
+      buttonTitle = @"Connect with Twitter";
+    
+    [actionSheet addButtonWithTitle:buttonTitle handler:^{
       pickAccountBlock(nil);
-    else {
-      [actionSheet addButtonWithTitle:@"Add Account" handler:^{
-        pickAccountBlock(nil);
-      }];
-      [actionSheet showFromTabBar:self.tabBarController.tabBar];
-    }
+    }];
+    
+    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+  
    
 
   } onComplete:^(id<account> account, id response, NSError *error, BOOL isSuccess) {
