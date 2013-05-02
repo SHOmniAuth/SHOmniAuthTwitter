@@ -8,7 +8,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuthTwitter"
-  s.version      = "0.0.1"
+  s.version      = "0.1.0"
   s.summary      = "Twitter strategy for SHOmniAuth."
   s.description  = <<-DESC
                     A strategy for authenticating with Twitter via SHOmniAuth.
@@ -29,6 +29,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency  'TWReverseAuth'
   s.dependency  'AFOAuth1Client'
-  s.dependency  'SHOmniAuth', '~> 0.0.1'
+  s.dependency  'SHOmniAuth', '~> 0.1.0'
 end
 
