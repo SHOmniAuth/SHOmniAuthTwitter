@@ -119,7 +119,8 @@
                                                     },
                                       @"provider" : @"twitter",
                                       @"uid" : responseUser[@"id"],
-                                      @"email": [NSNull null]
+                                      @"email": [NSNull null],
+                                      @"raw_info" : response
                                       };
       dispatch_async(dispatch_get_main_queue(), ^{
         completionBlock((id<account>)theAccount, omniAuthHash, error, isSuccess);
