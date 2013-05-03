@@ -1,1 +1,1 @@
-../../SHOmniAuth/SHOmniAuth/SHOmniAuthProviderPrivates.h
+../../../../../SHOmniAuth/SHOmniAuth/SHOmniAuthProviderPrivates.h

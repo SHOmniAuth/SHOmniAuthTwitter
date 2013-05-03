@@ -8,7 +8,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuthTwitter"
-  s.version      = "0.0.1"
+  s.version      = "0.1.0"
   s.summary      = "Twitter strategy for SHOmniAuth."
   s.description  = <<-DESC
                     A strategy for authenticating with Twitter via SHOmniAuth.
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.license      = {:type => 'MIT' } 
   s.author       = { "Seivan Heidari" => "seivan.heidari@icloud.com" }
   
-  s.source       = { :git => "https://github.com/seivan/SHOmniAuthTwitter.git", :tag => "0.0.1"}
+  s.source       = { :git => "https://github.com/seivan/SHOmniAuthTwitter.git", :tag => s.version.to_s}
   s.platform     = :ios, '6.0'
   
   s.frameworks  = 'Social', 'Accounts'
@@ -29,6 +29,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency  'TWReverseAuth'
   s.dependency  'AFOAuth1Client'
-  s.dependency  'SHOmniAuth', :git => "https://github.com/seivan/SHOmniAuth.git", :tag => "0.0.1"
+  s.dependency  'SHOmniAuth', '~> 0.1.0'
 end
 
