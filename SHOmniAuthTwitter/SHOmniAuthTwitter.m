@@ -18,8 +18,11 @@
 
 #import <Accounts/Accounts.h>
 
+#define NSNullIfNil(v) (v ? v : [NSNull null])
+
 
 @interface SHOmniAuthTwitter ()
++(NSDictionary *)authHashWithResponse:(NSDictionary *)theResponse;
 
 @end
 
@@ -64,7 +67,10 @@
                                               //REMOVE OBSERVER
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
-                                                            [self performReverseAuthForAccount:account withBlock:completionBlock];
+                                                            if(error || account == nil)
+                                                              completionBlock(nil, nil, error, NO);
+                                                            else
+                                                              [self performReverseAuthForAccount:account withBlock:completionBlock];
                                                           }];
                                               
                                             } failure:^(NSError *error) {
@@ -90,40 +96,36 @@
   ACAccountType  * accountType   = [accountStore accountTypeWithAccountTypeIdentifier:self.accountTypeIdentifier];
   theAccount.accountType = accountType; // Apple SDK bug - accountType isn't retained.
   [TWAPIManager performReverseAuthForAccount:theAccount withHandler:^(NSData *responseData, NSError *error) {
+    
+
+    
     NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+    
+
     NSDictionary * response = [NSURL ab_parseURLQueryString:responseStr];
+
+    
+    
+    
     BOOL isSuccess = error == nil ? YES : NO;
     
     SLRequest * request = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"http://api.twitter.com/1.1/account/verify_credentials.json?include_entities=false&skip_status=true"] parameters:nil];
     request.account = theAccount;
+    
+    
+    
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
       
       
       NSDictionary * responseUser =  [NSJSONSerialization
                                       JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
-//      NSLog(@"%@", error);
-//      
-//      NSLog(@"%@ - %@", response, responseUser);
-      NSDictionary * omniAuthHash = @{@"credentials" : @{@"secret" : response[@"oauth_token_secret"],
-                                                         @"token"  : response[@"oauth_token"]},
-                                      
-                                      @"info" : @{@"description"  : responseUser[@"description"],
-                                                    @"email"      : [NSNull null],
-                                                    @"first_name" : [NSNull null],
-                                                    @"last_name"  : [NSNull null],
-                                                    @"headline"   : [NSNull null],
-                                                    @"image"      : responseUser[@"profile_image_url"],
-                                                    @"name"       : responseUser[@"name"],
-                                                    @"urls"       : responseUser[@"entities"][@"url"],
-
-                                                    },
-                                      @"provider" : @"twitter",
-                                      @"uid" : responseUser[@"id"],
-                                      @"email": [NSNull null],
-                                      @"raw_info" : response
-                                      };
+      
+      NSMutableDictionary * fullResponse = responseUser.mutableCopy;
+      fullResponse[@"oauth_token_secret"] = response[@"oauth_token_secret"];
+      fullResponse[@"oauth_token"]        = response[@"oauth_token"];
+      
       dispatch_async(dispatch_get_main_queue(), ^{
-        completionBlock((id<account>)theAccount, omniAuthHash, error, isSuccess);
+        completionBlock((id<account>)theAccount, [self authHashWithResponse:fullResponse.copy], error, isSuccess);
       });
       
     }];
@@ -144,15 +146,18 @@
   
   __block ACAccount * account = [[ACAccount alloc]
                                  initWithAccountType:accountType];
-  
+  account.accountType = accountType; // Apple SDK bug - accountType isn't retained.
+
   account.credential = credential;
-  
   [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
     
     BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
     if ([error.domain isEqualToString:ACErrorDomain] && error.code ==ACErrorAccountAlreadyExists) {
-      //Existing error is a good and friendly error :) 
-      error = nil;
+      NSArray * accounts = [accountStore accountsWithAccountType:accountType];
+      if(accounts.count > 0)
+        account = accounts[0];
+      else
+        account = nil;
     }
     
     else if (success == NO)
@@ -186,5 +191,31 @@
 +(NSString *)description; {
   return NSStringFromClass(self.class);
 }
-
++(NSDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
+    NSDictionary * omniAuthHash = @{@"auth" :
+                                      @{@"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
+                                                           @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
+                                                    },
+                                  
+                                  @"info" : @{@"description" : NSNullIfNil(theResponse[@"description"]),
+                                              @"email"       : NSNullIfNil(theResponse[@"email"]),
+                                              @"first_name"  : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][0]),
+                                              @"last_name"   : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][1]),
+                                              @"headline"    : NSNullIfNil(theResponse[@"headline"]),
+                                              @"image"       : NSNullIfNil(theResponse[@"profile_image_url"]),
+                                              @"name"        : NSNullIfNil(theResponse[@"name"]),
+                                              @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
+                                              
+                                              },
+                                  
+                                        @"provider" : @"twitter",
+                                        @"uid"      : NSNullIfNil(theResponse[@"id"]),
+                                        @"raw_info" : NSNullIfNil(theResponse)
+                                  },
+                                  @"email"    : NSNullIfNil(theResponse[@"email"]),
+                                };
+  
+  
+  return omniAuthHash;
+}
 @end
