@@ -1,4 +1,5 @@
 ALWAYS_SEARCH_USER_PATHS = YES
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
 OTHER_LDFLAGS = -ObjC -Wl,-no_compact_unwind -framework Accounts -framework MessageUI -framework MobileCoreServices -framework Security -framework Social -framework SystemConfiguration
 PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AFNetworking" "${PODS_ROOT}/BuildHeaders/AFOAuth1Client" "${PODS_ROOT}/BuildHeaders/BlocksKit" "${PODS_ROOT}/BuildHeaders/LUKeychainAccess" "${PODS_ROOT}/BuildHeaders/NSData+Base64" "${PODS_ROOT}/BuildHeaders/OAuthCore" "${PODS_ROOT}/BuildHeaders/SHOmniAuth" "${PODS_ROOT}/BuildHeaders/SHOmniAuthTwitter" "${PODS_ROOT}/BuildHeaders/TWReverseAuth" "${PODS_ROOT}/BuildHeaders/libffi"

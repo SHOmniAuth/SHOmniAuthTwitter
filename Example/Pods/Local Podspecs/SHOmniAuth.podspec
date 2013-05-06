@@ -8,7 +8,7 @@
 #
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuth"
-  s.version      = "0.0.1"
+  s.version      = "0.1.0"
   s.summary      = "Pattern for Authentication via different providers."
   s.description  = <<-DESC
                     Fixed pattern for authentication via different providers
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.license      = {:type => 'MIT' } 
   s.author       = { "Seivan Heidari" => "seivan.heidari@icloud.com" }
   
-  s.source       = { :git => "https://github.com/seivan/SHAccountStore.git", :tag => "0.0.1"}
+  s.source       = { :git => "https://github.com/seivan/SHOmniAuth.git", :tag => s.version.to_s }
   
 
   s.platform  = :ios, "5.0"
