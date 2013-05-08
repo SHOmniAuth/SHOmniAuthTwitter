@@ -1,7 +1,7 @@
 PODS:
   - AFNetworking (1.2.1)
-  - AFOAuth1Client (0.1.1):
-    - AFNetworking (>= 0.9)
+  - AFOAuth1Client (0.2.0):
+    - AFNetworking (>= 1.0)
   - BlocksKit (1.8.2):
     - libffi
   - libffi (3.0.11)
@@ -11,7 +11,7 @@ PODS:
     - NSData+Base64
   - SHOmniAuth (0.1.0):
     - LUKeychainAccess
-  - SHOmniAuthTwitter (0.1.0):
+  - SHOmniAuthTwitter (0.2.1):
     - AFOAuth1Client
     - SHOmniAuth (~> 0.1.0)
     - TWReverseAuth
@@ -32,14 +32,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 616da0028916ce296f5c3cef74e5552eb4e10e13
-  AFOAuth1Client: 037044e341e897e0742920404f0c54ffd51dc776
+  AFOAuth1Client: 3e01e6e4218116c2e279671c8ab086133514a350
   BlocksKit: 7396526b0816734103f6133fbb1a520c8b04e80c
   libffi: 8a1d9ba43c0c84b546b42c6f742714e73aa07ae1
   LUKeychainAccess: 6ba22b2e1eec24f9f2fc9c6a9087d5524a58b1a2
   NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
   OAuthCore: 4164eec5e28c68f794953446e68f91054ffe570c
   SHOmniAuth: 08c9cac3af99986ae8858f40281cf30f90aeb17c
-  SHOmniAuthTwitter: 906961fc738f45ffd0a0fe15e14e3ec95ff5c492
+  SHOmniAuthTwitter: da7170a9de970c113d9d742589d58e5e6ffa4ea5
   TWReverseAuth: d0e6e2d534377f1832c2553ff4e9d677d549e45a
 
 COCOAPODS: 0.19.1

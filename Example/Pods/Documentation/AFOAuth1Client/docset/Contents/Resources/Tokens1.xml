@@ -111,25 +111,25 @@
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/AFOAuth1Client/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</TokenIdentifier>
+			<TokenIdentifier>//apple_ref/occ/instm/AFOAuth1Client/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</TokenIdentifier>
 			<Abstract type="html"></Abstract>
 			<DeclaredIn>AFOAuth1Client.h</DeclaredIn>			
 			
-			<Declaration>- (void)authorizeUsingOAuthWithRequestTokenPath:(NSString *)requestTokenPath userAuthorizationPath:(NSString *)userAuthorizationPath callbackURL:(NSURL *)callbackURL accessTokenPath:(NSString *)accessTokenPath accessMethod:(NSString *)accessMethod success:(void ( ^ ) ( AFOAuth1Token *accessToken ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			<Declaration>- (void)authorizeUsingOAuthWithRequestTokenPath:(NSString *)requestTokenPath userAuthorizationPath:(NSString *)userAuthorizationPath callbackURL:(NSURL *)callbackURL accessTokenPath:(NSString *)accessTokenPath accessMethod:(NSString *)accessMethod scope:(NSString *)scope success:(void ( ^ ) ( AFOAuth1Token *accessToken , id responseObject ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
 			
 			
-			<Anchor>//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</Anchor>
+			<Anchor>//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</Anchor>
 		</Token>
 		
 		<Token>
-			<TokenIdentifier>//apple_ref/occ/instm/AFOAuth1Client/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</TokenIdentifier>
+			<TokenIdentifier>//apple_ref/occ/instm/AFOAuth1Client/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</TokenIdentifier>
 			<Abstract type="html"></Abstract>
 			<DeclaredIn>AFOAuth1Client.h</DeclaredIn>			
 			
-			<Declaration>- (void)acquireOAuthRequestTokenWithPath:(NSString *)path callback:(NSURL *)url accessMethod:(NSString *)accessMethod success:(void ( ^ ) ( AFOAuth1Token *requestToken ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			<Declaration>- (void)acquireOAuthRequestTokenWithPath:(NSString *)path callbackURL:(NSURL *)url accessMethod:(NSString *)accessMethod scope:(NSString *)scope success:(void ( ^ ) ( AFOAuth1Token *requestToken , id responseObject ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
 			
 			
-			<Anchor>//api/name/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</Anchor>
+			<Anchor>//api/name/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</Anchor>
 		</Token>
 		
 		<Token>
@@ -137,7 +137,7 @@
 			<Abstract type="html"></Abstract>
 			<DeclaredIn>AFOAuth1Client.h</DeclaredIn>			
 			
-			<Declaration>- (void)acquireOAuthAccessTokenWithPath:(NSString *)path requestToken:(AFOAuth1Token *)requestToken accessMethod:(NSString *)accessMethod success:(void ( ^ ) ( AFOAuth1Token *accessToken ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
+			<Declaration>- (void)acquireOAuthAccessTokenWithPath:(NSString *)path requestToken:(AFOAuth1Token *)requestToken accessMethod:(NSString *)accessMethod success:(void ( ^ ) ( AFOAuth1Token *accessToken , id responseObject ))success failure:(void ( ^ ) ( NSError *error ))failure</Declaration>
 			
 			
 			<Anchor>//api/name/acquireOAuthAccessTokenWithPath:requestToken:accessMethod:success:failure:</Anchor>
