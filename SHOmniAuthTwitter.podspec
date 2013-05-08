@@ -1,14 +1,6 @@
-#
-# Be sure to run `pod spec lint SHOmniAuthTwitter.podspec' to ensure this is a
-# valid spec.
-#
-# Remove all comments before submitting the spec. Optional attributes are commented.
-#
-# For details see: https://github.com/CocoaPods/CocoaPods/wiki/The-podspec-format
-#
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuthTwitter"
-  s.version      = "0.2.0"
+  s.version      = "0.2.1"
   s.summary      = "Twitter strategy for SHOmniAuth."
   s.description  = <<-DESC
                     A strategy for authenticating with Twitter via SHOmniAuth.
