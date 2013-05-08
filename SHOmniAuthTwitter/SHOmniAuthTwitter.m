@@ -22,7 +22,7 @@
 
 
 @interface SHOmniAuthTwitter ()
-+(NSDictionary *)authHashWithResponse:(NSDictionary *)theResponse;
++(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse;
 
 @end
 
@@ -191,11 +191,11 @@
 +(NSString *)description; {
   return NSStringFromClass(self.class);
 }
-+(NSDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
-    NSDictionary * omniAuthHash = @{@"auth" :
++(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
+    NSMutableDictionary * omniAuthHash = @{@"auth" :
                                       @{@"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
                                                            @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
-                                                    },
+                                                    }.mutableCopy,
                                   
                                   @"info" : @{@"description" : NSNullIfNil(theResponse[@"description"]),
                                               @"email"       : NSNullIfNil(theResponse[@"email"]),
@@ -206,14 +206,14 @@
                                               @"name"        : NSNullIfNil(theResponse[@"name"]),
                                               @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
                                               
-                                              },
+                                              }.mutableCopy,
                                   
                                         @"provider" : @"twitter",
                                         @"uid"      : NSNullIfNil(theResponse[@"id"]),
                                         @"raw_info" : NSNullIfNil(theResponse)
-                                  },
+                                  }.mutableCopy,
                                   @"email"    : NSNullIfNil(theResponse[@"email"]),
-                                };
+                                }.mutableCopy;
   
   
   return omniAuthHash;
