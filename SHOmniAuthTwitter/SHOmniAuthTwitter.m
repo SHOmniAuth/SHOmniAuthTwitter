@@ -63,8 +63,13 @@
                                                                          providerValue:SHOmniAuthProviderValueCallbackUrl
                                                                          forProvider:self.provider]]
                                          accessTokenPath:@"oauth/access_token"
-                                            accessMethod:@"POST" success:^(AFOAuth1Token *accessToken) {
+                                            accessMethod:@"POST"
+                                                   scope:[SHOmniAuth
+                                                          providerValue:SHOmniAuthProviderValueScope
+                                                          forProvider:self.provider]
+                                                 success:^(AFOAuth1Token *accessToken, id responseObject) {
                                               //REMOVE OBSERVER
+                                                   NSLog(@"LOOOLZ %@", responseObject);
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
                                                             if(error || account == nil)

@@ -15,8 +15,8 @@
 // AFOAuth1Client
 #define COCOAPODS_POD_AVAILABLE_AFOAuth1Client
 #define COCOAPODS_VERSION_MAJOR_AFOAuth1Client 0
-#define COCOAPODS_VERSION_MINOR_AFOAuth1Client 1
-#define COCOAPODS_VERSION_PATCH_AFOAuth1Client 1
+#define COCOAPODS_VERSION_MINOR_AFOAuth1Client 2
+#define COCOAPODS_VERSION_PATCH_AFOAuth1Client 0
 
 // BlocksKit
 #define COCOAPODS_POD_AVAILABLE_BlocksKit
@@ -51,8 +51,8 @@
 // SHOmniAuthTwitter
 #define COCOAPODS_POD_AVAILABLE_SHOmniAuthTwitter
 #define COCOAPODS_VERSION_MAJOR_SHOmniAuthTwitter 0
-#define COCOAPODS_VERSION_MINOR_SHOmniAuthTwitter 1
-#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 0
+#define COCOAPODS_VERSION_MINOR_SHOmniAuthTwitter 2
+#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 1
 
 // TWReverseAuth
 #define COCOAPODS_POD_AVAILABLE_TWReverseAuth

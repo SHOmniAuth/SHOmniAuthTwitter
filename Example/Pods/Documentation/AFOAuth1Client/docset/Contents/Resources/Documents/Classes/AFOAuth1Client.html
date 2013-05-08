@@ -12,7 +12,7 @@
 	<body>
 		<header id="top_header">
 			<div id="library" class="hideInXcode">
-				<h1><a id="libraryTitle" href="../index.html">AFOAuth1Client 0.1.1 </a></h1>
+				<h1><a id="libraryTitle" href="../index.html">AFOAuth1Client 0.2.0 </a></h1>
 				<a id="developerHome" href="../index.html">Mattt Thompson</a>
 			</div>
 			
@@ -57,9 +57,9 @@
 	
 	<option value="//api/name/acquireOAuthAccessTokenWithPath:requestToken:accessMethod:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- acquireOAuthAccessTokenWithPath:requestToken:accessMethod:success:failure:</option>
 	
-	<option value="//api/name/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</option>
+	<option value="//api/name/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</option>
 	
-	<option value="//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</option>
+	<option value="//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:">&nbsp;&nbsp;&nbsp;&nbsp;- authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</option>
 	
 	<option value="//api/name/initWithBaseURL:key:secret:">&nbsp;&nbsp;&nbsp;&nbsp;- initWithBaseURL:key:secret:</option>
 	
@@ -111,9 +111,9 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/acquireOAuthAccessTokenWithPath:requestToken:accessMethod:success:failure:">acquireOAuthAccessTokenWithPath:requestToken:accessMethod:success:failure:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:">acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:">acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:">authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</a></span></li>
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:">authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initWithBaseURL:key:secret:">initWithBaseURL:key:secret:</a></span></li>
 	
@@ -142,6 +142,9 @@
 						<tr>
 	<td class="specification-title">Inherits from</td>
 	<td class="specification-value">AFHTTPClient</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSCoding<br />NSCopying</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
 	<td class="specification-value">AFOAuth1Client.h</td>
@@ -217,14 +220,14 @@
 						<ul class="task-list">
 							<li>
 	<span class="tooltip">
-		<code><a href="#//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:">&ndash;&nbsp;authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</a></code>
+		<code><a href="#//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:">&ndash;&nbsp;authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</a></code>
 		
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:">&ndash;&nbsp;acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</a></code>
+		<code><a href="#//api/name/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:">&ndash;&nbsp;acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</a></code>
 		
 	</span>
 	
@@ -395,7 +398,7 @@
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)acquireOAuthAccessTokenWithPath:(NSString *)<em>path</em> requestToken:(AFOAuth1Token *)<em>requestToken</em> accessMethod:(NSString *)<em>accessMethod</em> success:(void ( ^ ) ( AFOAuth1Token *accessToken ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)acquireOAuthAccessTokenWithPath:(NSString *)<em>path</em> requestToken:(AFOAuth1Token *)<em>requestToken</em> accessMethod:(NSString *)<em>accessMethod</em> success:(void ( ^ ) ( AFOAuth1Token *accessToken , id responseObject ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -420,14 +423,14 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:" title="acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:"></a>
-	<h3 class="subsubtitle method-title">acquireOAuthRequestTokenWithPath:callback:accessMethod:success:failure:</h3>
+	<a name="//api/name/acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:" title="acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:"></a>
+	<h3 class="subsubtitle method-title">acquireOAuthRequestTokenWithPath:callbackURL:accessMethod:scope:success:failure:</h3>
 	
 	
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)acquireOAuthRequestTokenWithPath:(NSString *)<em>path</em> callback:(NSURL *)<em>url</em> accessMethod:(NSString *)<em>accessMethod</em> success:(void ( ^ ) ( AFOAuth1Token *requestToken ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)acquireOAuthRequestTokenWithPath:(NSString *)<em>path</em> callbackURL:(NSURL *)<em>url</em> accessMethod:(NSString *)<em>accessMethod</em> scope:(NSString *)<em>scope</em> success:(void ( ^ ) ( AFOAuth1Token *requestToken , id responseObject ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -452,14 +455,14 @@
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:" title="authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:"></a>
-	<h3 class="subsubtitle method-title">authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:success:failure:</h3>
+	<a name="//api/name/authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:" title="authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:"></a>
+	<h3 class="subsubtitle method-title">authorizeUsingOAuthWithRequestTokenPath:userAuthorizationPath:callbackURL:accessTokenPath:accessMethod:scope:success:failure:</h3>
 	
 	
 	
     
 
-	<div class="method-subsection method-declaration"><code>- (void)authorizeUsingOAuthWithRequestTokenPath:(NSString *)<em>requestTokenPath</em> userAuthorizationPath:(NSString *)<em>userAuthorizationPath</em> callbackURL:(NSURL *)<em>callbackURL</em> accessTokenPath:(NSString *)<em>accessTokenPath</em> accessMethod:(NSString *)<em>accessMethod</em> success:(void ( ^ ) ( AFOAuth1Token *accessToken ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
+	<div class="method-subsection method-declaration"><code>- (void)authorizeUsingOAuthWithRequestTokenPath:(NSString *)<em>requestTokenPath</em> userAuthorizationPath:(NSString *)<em>userAuthorizationPath</em> callbackURL:(NSURL *)<em>callbackURL</em> accessTokenPath:(NSString *)<em>accessTokenPath</em> accessMethod:(NSString *)<em>accessMethod</em> scope:(NSString *)<em>scope</em> success:(void ( ^ ) ( AFOAuth1Token *accessToken , id responseObject ))<em>success</em> failure:(void ( ^ ) ( NSError *error ))<em>failure</em></code></div>
 
     
 	
@@ -528,7 +531,7 @@
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Mattt Thompson. All rights reserved. (Last updated: 2013-03-27)</span><br />
+						<p><span class="copyright">&copy; 2013 Mattt Thompson. All rights reserved. (Last updated: 2013-05-08)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
