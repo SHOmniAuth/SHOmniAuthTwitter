@@ -197,28 +197,28 @@
   return NSStringFromClass(self.class);
 }
 +(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
-    NSMutableDictionary * omniAuthHash = @{@"auth" :
-                                      @{@"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
-                                                           @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
-                                                    }.mutableCopy,
+    NSMutableDictionary * omniAuthHash = @{@"auth" :@{
+                                               @"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
+                                                                    @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
+                                                                  }.mutableCopy,
                                   
-                                  @"info" : @{@"description" : NSNullIfNil(theResponse[@"description"]),
-                                              @"email"       : NSNullIfNil(theResponse[@"email"]),
-                                              @"first_name"  : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][0]),
-                                              @"last_name"   : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][1]),
-                                              @"headline"    : NSNullIfNil(theResponse[@"headline"]),
-                                              @"image"       : NSNullIfNil(theResponse[@"profile_image_url"]),
-                                              @"name"        : NSNullIfNil(theResponse[@"name"]),
-                                              @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
+                                               @"info"        : @{@"description" : NSNullIfNil(theResponse[@"description"]),
+                                                                  @"email"       : NSNullIfNil(theResponse[@"email"]),
+                                                                  @"first_name"  : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][0]),
+                                                                  @"last_name"   : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][1]),
+                                                                  @"headline"    : NSNullIfNil(theResponse[@"headline"]),
+                                                                  @"image"       : NSNullIfNil(theResponse[@"profile_image_url"]),
+                                                                  @"name"        : NSNullIfNil(theResponse[@"name"]),
+                                                                  @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
                                               
-                                              }.mutableCopy,
+                                                                  }.mutableCopy,
                                   
-                                        @"provider" : @"twitter",
-                                        @"uid"      : NSNullIfNil(theResponse[@"id"]),
-                                        @"raw_info" : NSNullIfNil(theResponse)
-                                  }.mutableCopy,
-                                  @"email"    : NSNullIfNil(theResponse[@"email"]),
-                                }.mutableCopy;
+                                               @"provider" : @"twitter",
+                                               @"uid"      : NSNullIfNil(theResponse[@"id"]),
+                                               @"raw_info" : NSNullIfNil(theResponse)
+                                               }.mutableCopy,
+                                           @"email"    : NSNullIfNil(theResponse[@"email"]),
+                                           }.mutableCopy;
   
   
   return omniAuthHash;
