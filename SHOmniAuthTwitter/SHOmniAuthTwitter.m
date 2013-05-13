@@ -197,18 +197,30 @@
   return NSStringFromClass(self.class);
 }
 +(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
+  NSString * name  = theResponse[@"name"];
+  NSArray  * names = [name componentsSeparatedByString:@" "];
+  NSString * firstName = nil;
+  NSString * lastName = nil;
+  if(names.count > 0 )
+    firstName = names[0];
+  if(names.count > 1 )
+    lastName = names[1];
+  if(names.count > 2 )
+    lastName = names[names.count-1];
+  
+                      
     NSMutableDictionary * omniAuthHash = @{@"auth" :@{
                                                @"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
-                                                                    @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
+                                                                  @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
                                                                   }.mutableCopy,
                                   
                                                @"info"        : @{@"description" : NSNullIfNil(theResponse[@"description"]),
                                                                   @"email"       : NSNullIfNil(theResponse[@"email"]),
-                                                                  @"first_name"  : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][0]),
-                                                                  @"last_name"   : NSNullIfNil([theResponse[@"name"] componentsSeparatedByString:@" "][1]),
+                                                                  @"first_name"  : NSNullIfNil(firstName),
+                                                                  @"last_name"   : NSNullIfNil(lastName),
                                                                   @"headline"    : NSNullIfNil(theResponse[@"headline"]),
                                                                   @"image"       : NSNullIfNil(theResponse[@"profile_image_url"]),
-                                                                  @"name"        : NSNullIfNil(theResponse[@"name"]),
+                                                                  @"name"        : NSNullIfNil(name),
                                                                   @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
                                               
                                                                   }.mutableCopy,
