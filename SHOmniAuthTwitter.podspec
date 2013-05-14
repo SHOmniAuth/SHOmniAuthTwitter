@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SHOmniAuthTwitter"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "Twitter strategy for SHOmniAuth."
   s.description  = <<-DESC
                     A strategy for authenticating with Twitter via SHOmniAuth.
