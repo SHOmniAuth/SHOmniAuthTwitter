@@ -208,7 +208,8 @@
   if(names.count > 2 )
     lastName = names[names.count-1];
   
-                      
+    NSString * publicProfile = [NSString stringWithFormat:@"%@/%@", @"https://twitter.com", theResponse[@"screen_name"]];
+
     NSMutableDictionary * omniAuthHash = @{@"auth" :@{
                                                @"credentials" : @{@"secret" : NSNullIfNil(theResponse[@"oauth_token_secret"]),
                                                                   @"token"  : NSNullIfNil(theResponse[@"oauth_token"])
@@ -221,7 +222,9 @@
                                                                   @"headline"    : NSNullIfNil(theResponse[@"headline"]),
                                                                   @"image"       : NSNullIfNil(theResponse[@"profile_image_url"]),
                                                                   @"name"        : NSNullIfNil(name),
-                                                                  @"urls"        : NSNullIfNil(theResponse[@"entities"][@"url"]),
+                                                                  @"urls"        : @{@"public_profile" : publicProfile,
+                                                                                     @"website" : theResponse[@"url"]
+                                                                                    }.mutableCopy,
                                               
                                                                   }.mutableCopy,
                                   
