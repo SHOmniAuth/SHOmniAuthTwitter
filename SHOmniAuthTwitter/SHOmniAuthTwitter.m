@@ -72,7 +72,7 @@
                                                    NSLog(@"LOOOLZ %@", responseObject);
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
-                                                            if(error || account == nil)
+                                                            if(!error && account == nil)
                                                               completionBlock(nil, nil, error, NO);
                                                             else
                                                               [self performReverseAuthForAccount:account withBlock:completionBlock];
