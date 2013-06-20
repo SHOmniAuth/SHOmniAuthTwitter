@@ -3,8 +3,8 @@
 /* -----------------------------------------------------------------------
    sysv.S - Copyright (c) 1998, 2008, 2011 Red Hat, Inc.
 	    Copyright (c) 2011 Plausible Labs Cooperative, Inc.
-   
-   ARM Foreign Function Interface 
+
+   ARM Foreign Function Interface
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -27,7 +27,7 @@
    DEALINGS IN THE SOFTWARE.
    ----------------------------------------------------------------------- */
 
-#define LIBFFI_ASM	
+#define LIBFFI_ASM
 #include <fficonfig.h>
 #include <ffi.h>
 #ifdef HAVE_MACHINE_ASM_H
@@ -61,7 +61,7 @@
 #define __SOFTFP__
 #endif
 
-/* We need a better way of testing for this, but for now, this is all 
+/* We need a better way of testing for this, but for now, this is all
    we can do.  */
 @ This selects the minimum architecture level required.
 #define __ARM_ARCH__ 3
@@ -70,7 +70,7 @@
 # undef __ARM_ARCH__
 # define __ARM_ARCH__ 4
 #endif
-        
+
 #if defined(__ARM_ARCH_5__) || defined(__ARM_ARCH_5T__) \
 	|| defined(__ARM_ARCH_5E__) || defined(__ARM_ARCH_5TE__) \
 	|| defined(__ARM_ARCH_5TEJ__)
@@ -113,11 +113,10 @@
 
 .syntax unified
 
-	
 #if defined(__thumb__) && !defined(__THUMB_INTERWORK__)
 #define ARM_FUNC_START(name) \
 	.text; \
-	.align 4; \
+	.align 2; \
 	.thumb; \
 	.thumb_func; \
 	ENTRY(name); \
@@ -125,12 +124,11 @@
 	nop; \
 	.arm; \
 	UNWIND .fnstart; \
-_L__##name: \
-.endm
+_L__##name:
 #else
 #define ARM_FUNC_START(name) \
 	.text; \
-	.align 4; \
+	.align 2; \
 	.arm; \
 	ENTRY(name); \
 	UNWIND .fnstart
@@ -168,7 +166,7 @@ ARM_FUNC_START(ffi_call_SYSV)
 	@     r1 already set
 
 	@ Call ffi_prep_args(stack, &ecif)
-	bl	CNAME(ffi_prep_args)
+	bl	CNAME(ffi_prep_args_SYSV)
 
 	@ move first 4 parameters in registers
 	ldmia	sp, {r0-r3}
@@ -182,14 +180,14 @@ ARM_FUNC_START(ffi_call_SYSV)
 
 	@ call (fn) (...)
 	call_reg(ip)
-	
+
 	@ Remove the space we pushed for the args
 	mov	sp, fp
 
 	@ Load r2 with the pointer to storage for the return value
 	ldr	r2, [sp, #24]
 
-	@ Load r3 with the return type code 
+	@ Load r3 with the return type code
 	ldr	r3, [sp, #12]
 
 	@ If the return value pointer is NULL, assume no return value.
@@ -241,7 +239,7 @@ LSYM(Lepilogue):
 
 /*
 	unsigned int FFI_HIDDEN
-	ffi_closure_SYSV_inner (closure, respp, args)
+	ffi_closure_inner (closure, respp, args)
 	     ffi_closure *closure;
 	     void **respp;
   	     void *args;
@@ -257,7 +255,7 @@ ARM_FUNC_START(ffi_closure_SYSV)
 	sub	sp, sp, #16
 	str	sp, [sp, #8]
 	add	r1, sp, #8
-	bl	CNAME(ffi_closure_SYSV_inner)
+	bl	CNAME(ffi_closure_inner)
 	cmp	r0, #FFI_TYPE_INT
 	beq	.Lretint
 
@@ -326,7 +324,7 @@ ARM_FUNC_START(ffi_closure_SYSV)
 	@ r3:   fig->flags
 	@ sp+0: ecif.rvalue
 
-ARM_FUNC_START ffi_call_VFP
+ARM_FUNC_START(ffi_call_VFP)
 	@ Save registers
         stmfd	sp!, {r0-r3, fp, lr}
 	UNWIND .save	{r0-r3, fp, lr}
@@ -345,7 +343,7 @@ ARM_FUNC_START ffi_call_VFP
 	sub	r2, fp, #64   @ VFP scratch space
 
 	@ Call ffi_prep_args(stack, &ecif, vfp_space)
-	bl	CNAME(ffi_prep_args)
+	bl	CNAME(ffi_prep_args_VFP)
 
 	@ Load VFP register args if needed
 	cmp	r0, #0
@@ -378,7 +376,7 @@ LSYM(Lbase_args):
 	@ the return value
 	ldr	r2, [sp, #24]
 
-	@ Load r3 with the return type code 
+	@ Load r3 with the return type code
 	ldr	r3, [sp, #12]
 
 	@ If the return value pointer is NULL,
@@ -391,13 +389,13 @@ LSYM(Lbase_args):
 	beq	LSYM(Lepilogue_vfp)
 
 	cmp	r3, #FFI_TYPE_SINT64
-	stmiaeq	r2, {r0, r1}
+	stmeqia	r2, {r0, r1}
 	beq	LSYM(Lepilogue_vfp)
 
 	cmp	r3, #FFI_TYPE_FLOAT
 	fstseq	s0, [r2]
 	beq	LSYM(Lepilogue_vfp)
-	
+
 	cmp	r3, #FFI_TYPE_DOUBLE
 	fstdeq	d0, [r2]
 	beq	LSYM(Lepilogue_vfp)
@@ -414,7 +412,7 @@ LSYM(Lepilogue_vfp):
         .size    CNAME(ffi_call_VFP),.ffi_call_VFP_end-CNAME(ffi_call_VFP)
 
 
-ARM_FUNC_START ffi_closure_VFP
+ARM_FUNC_START(ffi_closure_VFP)
 	fstmfdd	sp!, {d0-d7}
 	@ r0-r3, then d0-d7
 	UNWIND .pad #80
@@ -427,7 +425,7 @@ ARM_FUNC_START ffi_closure_VFP
 	sub	sp, sp, #72
 	str	sp, [sp, #64]
 	add	r1, sp, #64
-	bl	CNAME(ffi_closure_SYSV_inner)
+	bl	CNAME(ffi_closure_inner)
 
 	cmp	r0, #FFI_TYPE_INT
 	beq	.Lretint_vfp
@@ -447,7 +445,7 @@ ARM_FUNC_START ffi_closure_VFP
 
 	cmp	r0, #FFI_TYPE_STRUCT_VFP_DOUBLE
 	beq	.Lretdouble_struct_vfp
-	
+
 .Lclosure_epilogue_vfp:
 	add	sp, sp, #72
 	ldmfd	sp, {sp, pc}

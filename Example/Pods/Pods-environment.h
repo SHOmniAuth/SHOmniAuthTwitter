@@ -9,7 +9,7 @@
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 1
-#define COCOAPODS_VERSION_MINOR_AFNetworking 2
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 1
 
 // AFOAuth1Client
@@ -45,14 +45,14 @@
 // SHOmniAuth
 #define COCOAPODS_POD_AVAILABLE_SHOmniAuth
 #define COCOAPODS_VERSION_MAJOR_SHOmniAuth 0
-#define COCOAPODS_VERSION_MINOR_SHOmniAuth 1
-#define COCOAPODS_VERSION_PATCH_SHOmniAuth 0
+#define COCOAPODS_VERSION_MINOR_SHOmniAuth 2
+#define COCOAPODS_VERSION_PATCH_SHOmniAuth 1
 
 // SHOmniAuthTwitter
 #define COCOAPODS_POD_AVAILABLE_SHOmniAuthTwitter
 #define COCOAPODS_VERSION_MAJOR_SHOmniAuthTwitter 0
 #define COCOAPODS_VERSION_MINOR_SHOmniAuthTwitter 2
-#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 1
+#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 4
 
 // TWReverseAuth
 #define COCOAPODS_POD_AVAILABLE_TWReverseAuth
@@ -64,5 +64,5 @@
 #define COCOAPODS_POD_AVAILABLE_libffi
 #define COCOAPODS_VERSION_MAJOR_libffi 3
 #define COCOAPODS_VERSION_MINOR_libffi 0
-#define COCOAPODS_VERSION_PATCH_libffi 11
+#define COCOAPODS_VERSION_PATCH_libffi 13
 

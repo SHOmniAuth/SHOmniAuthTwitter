@@ -1,7 +1,7 @@
 #if !defined(__arm__) && defined(__i386__)
 
 /* -----------------------------------------------------------------*-C-*-
-   libffi 3.0.11 - Copyright (c) 2011 Anthony Green
+   libffi 3.0.13 - Copyright (c) 2011 Anthony Green
                     - Copyright (c) 1996-2003, 2007, 2008 Red Hat, Inc.
 
    Permission is hereby granted, free of charge, to any person
