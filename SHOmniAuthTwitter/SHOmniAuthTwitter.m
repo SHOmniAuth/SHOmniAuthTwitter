@@ -68,11 +68,10 @@
                                                           providerValue:SHOmniAuthProviderValueScope
                                                           forProvider:self.provider]
                                                  success:^(AFOAuth1Token *accessToken, id responseObject) {
-                                              //REMOVE OBSERVER
-                                                   NSLog(@"LOOOLZ %@", responseObject);
+                                                   
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
-                                                            if(!error && account == nil)
+                                                            if(error == nil && account == nil)
                                                               completionBlock(nil, nil, error, NO);
                                                             else
                                                               [self performReverseAuthForAccount:account withBlock:completionBlock];
