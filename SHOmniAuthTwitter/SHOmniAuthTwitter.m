@@ -68,14 +68,16 @@
                                                           providerValue:SHOmniAuthProviderValueScope
                                                           forProvider:self.provider]
                                                  success:^(AFOAuth1Token *accessToken, id responseObject) {
-                                              //REMOVE OBSERVER
-                                                   NSLog(@"LOOOLZ %@", responseObject);
+                                                   
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
-                                                            if(!error && account == nil)
-                                                              completionBlock(nil, nil, error, NO);
-                                                            else
+                                                            if(account)
                                                               [self performReverseAuthForAccount:account withBlock:completionBlock];
+                                                            else
+                                                              completionBlock(nil, nil, error, NO);
+
+
+                                                              
                                                           }];
                                               
                                             } failure:^(NSError *error) {
@@ -157,7 +159,7 @@
   [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
     
     BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
-    if ([error.domain isEqualToString:ACErrorDomain] && error.code ==ACErrorAccountAlreadyExists) {
+    if ([error.domain isEqualToString:ACErrorDomain] && error.code == ACErrorAccountAlreadyExists) {
       NSArray * accounts = [accountStore accountsWithAccountType:accountType];
       if(accounts.count > 0)
         account = accounts[0];
