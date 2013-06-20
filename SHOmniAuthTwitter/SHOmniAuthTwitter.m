@@ -71,10 +71,12 @@
                                                    
                                               [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
                                                           withCompletionHandler:^(ACAccount *account, NSError *error) {
-                                                            if(error && account)
+                                                            if(account)
                                                               [self performReverseAuthForAccount:account withBlock:completionBlock];
                                                             else
                                                               completionBlock(nil, nil, error, NO);
+
+
                                                               
                                                           }];
                                               
