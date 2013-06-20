@@ -159,7 +159,7 @@
   [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
     
     BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
-    if ([error.domain isEqualToString:ACErrorDomain] && error.code ==ACErrorAccountAlreadyExists) {
+    if ([error.domain isEqualToString:ACErrorDomain] && error.code == ACErrorAccountAlreadyExists) {
       NSArray * accounts = [accountStore accountsWithAccountType:accountType];
       if(accounts.count > 0)
         account = accounts[0];
