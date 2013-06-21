@@ -36,10 +36,13 @@
   [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
     dispatch_async(dispatch_get_main_queue(), ^{
       accountPickerBlock([accountStore accountsWithAccountType:accountType], ^(id<account> theChosenAccount) {
-        ACAccount * account = (ACAccount *)theChosenAccount;
-        if(account == nil)[self performLoginForNewAccount:completionBlock];
-        else [self performReverseAuthForAccount:account withBlock:completionBlock];
-      });      
+        if (granted) {
+          ACAccount * account = (ACAccount *)theChosenAccount;
+          if(account == nil)[self performLoginForNewAccount:completionBlock];
+          else [self performReverseAuthForAccount:account withBlock:completionBlock];
+        }
+        else completionBlock(nil, nil, error, granted);
+      });
     });
   }];
 
