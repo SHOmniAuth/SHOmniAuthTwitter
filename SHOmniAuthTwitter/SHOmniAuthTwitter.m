@@ -105,7 +105,13 @@
   [TWAPIManager performReverseAuthForAccount:theAccount withHandler:^(NSData *responseData, NSError *error) {
     
 
-    
+    if(responseData == nil) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        completionBlock((id<account>)theAccount, nil, error, NO);
+        return;
+      });
+    }
+
     NSString *responseStr = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
     
 
@@ -124,6 +130,13 @@
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
       
       
+      if(responseData == nil) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+          completionBlock((id<account>)theAccount, nil, error, NO);
+          return;
+        });
+      }
+
       NSDictionary * responseUser =  [NSJSONSerialization
                                       JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
       
