@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   name         = "SHOmniAuthTwitter"
   url          = "https://github.com/seivan/#{name}"
   git_url      = "#{url}.git"
-  version      = "0.2.4"
+  version      = "0.2.8"
   source_files = "#{name}/**/*.{h,m}"
 
   s.name         = name
@@ -23,11 +23,9 @@ Pod::Spec.new do |s|
   
   s.frameworks  = 'Social', 'Accounts'
 
-
   s.source_files = source_files
   s.requires_arc = true
   s.dependency  'TWReverseAuth', '~>0.1.0'
   s.dependency  'AFOAuth1Client', '~> 0.2.0'
   s.dependency  'SHOmniAuth', '~> 0.2.0'
 end
-

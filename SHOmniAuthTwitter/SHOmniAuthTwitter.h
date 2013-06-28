@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Seivan Heidari. All rights reserved.
 //
 
-
+static NSString * const kOmniAuthTwitterErrorDomain          = @"SHOmniAuthTwitter";
 #import "SHOmniAuthProvider.h"
 @interface SHOmniAuthTwitter : NSObject
 <SHOmniAuthProvider>
