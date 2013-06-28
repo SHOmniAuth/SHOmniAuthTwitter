@@ -148,7 +148,18 @@
       fullResponse[@"oauth_token"]        = response[@"oauth_token"];
       
       dispatch_async(dispatch_get_main_queue(), ^{
-        completionBlock((id<account>)theAccount, [self authHashWithResponse:fullResponse.copy], error, isSuccess);
+          // Twitter response may contain errors and should not be propagated to completionBlock or authHashWithResponse
+          if ([responseUser[@"errors"] count] > 0) {
+              NSError *responseError = nil;
+              NSDictionary *responseErrorDictionary = responseUser[@"errors"][0];
+              NSInteger code = [responseErrorDictionary[@"code"] integerValue];
+              NSString *message = responseErrorDictionary[@"message"];
+              responseError = [NSError errorWithDomain:kOmniAuthTwitterErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : NSNullIfNil(message)}];
+              completionBlock((id<account>)theAccount, nil, responseError, isSuccess);
+          }
+          else {
+              completionBlock((id<account>)theAccount, [self authHashWithResponse:fullResponse.copy], error, isSuccess);
+          }
       });
       
     }];
