@@ -31,22 +31,24 @@
 
 +(void)performLoginWithListOfAccounts:(SHOmniAuthAccountsListHandler)accountPickerBlock
                            onComplete:(SHOmniAuthAccountResponseHandler)completionBlock; {
-  ACAccountStore * accountStore  =  [[ACAccountStore alloc] init];
-  ACAccountType  * accountType   = [accountStore accountTypeWithAccountTypeIdentifier:self.accountTypeIdentifier];
-  [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      accountPickerBlock([accountStore accountsWithAccountType:accountType], ^(id<account> theChosenAccount) {
-        if (granted) {
-          ACAccount * account = (ACAccount *)theChosenAccount;
-          if(account == nil)[self performLoginForNewAccount:completionBlock];
-          else [self performReverseAuthForAccount:account withBlock:completionBlock];
-        }
-        else completionBlock(nil, nil, error, granted);
-      });
-    });
-  }];
-
-  
+    ACAccountStore * accountStore  =  [[ACAccountStore alloc] init];
+    ACAccountType  * accountType   = [accountStore accountTypeWithAccountTypeIdentifier:self.accountTypeIdentifier];
+    [accountStore requestAccessToAccountsWithType:accountType options:nil completion:^(BOOL granted, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            accountPickerBlock([accountStore accountsWithAccountType:accountType], ^(id<account> theChosenAccount) {
+                if (granted
+                    // No account, we should attempt to create one with performLoginForNewAccount
+                    || ([error.domain isEqualToString: @"com.apple.accounts"] && error.code == 6 && theChosenAccount == nil)) {
+                    ACAccount * account = (ACAccount *)theChosenAccount;
+                    if(account == nil)[self performLoginForNewAccount:completionBlock];
+                    else [self performReverseAuthForAccount:account withBlock:completionBlock];
+                }
+                else completionBlock(nil, nil, error, granted);
+            });
+        });
+    }];
+    
+    
 }
 
 +(void)performLoginForNewAccount:(SHOmniAuthAccountResponseHandler)completionBlock; {
@@ -125,10 +127,8 @@
     
     BOOL isSuccess = error == nil ? YES : NO;
     
-    SLRequest * request = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"http://api.twitter.com/1.1/account/verify_credentials.json?include_entities=false&skip_status=true"] parameters:nil];
+    SLRequest * request = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json?include_entities=false&skip_status=true"] parameters:nil];
     request.account = theAccount;
-    
-    
     
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
       
@@ -148,8 +148,18 @@
       fullResponse[@"oauth_token"]        = response[@"oauth_token"];
       
       dispatch_async(dispatch_get_main_queue(), ^{
+          if (!responseUser) {
+              NSString *message = @"Bad response: Unknown error"; // Default message
+              
+              if (responseData) {
+                  message = [[NSString alloc] initWithData: responseData encoding:NSUTF8StringEncoding];
+              }
+              
+              NSError *responseError = [NSError errorWithDomain:kOmniAuthTwitterErrorDomain code:urlResponse.statusCode userInfo:@{NSLocalizedDescriptionKey : NSNullIfNil(message)}];
+              completionBlock((id<account>)theAccount, nil, responseError, isSuccess);
+          }
           // Twitter response may contain errors and should not be propagated to completionBlock or authHashWithResponse
-          if ([responseUser[@"errors"] count] > 0) {
+          else if ([responseUser[@"errors"] count] > 0) {
               NSError *responseError = nil;
               NSDictionary *responseErrorDictionary = responseUser[@"errors"][0];
               NSInteger code = [responseErrorDictionary[@"code"] integerValue];
@@ -188,8 +198,13 @@
     BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
     if ([error.domain isEqualToString:ACErrorDomain] && error.code == ACErrorAccountAlreadyExists) {
       NSArray * accounts = [accountStore accountsWithAccountType:accountType];
-      if(accounts.count > 0)
+      // Only return an account if we're sure the account is the matching account
+      if(accounts.count == 1)
         account = accounts[0];
+      else if (accounts.count > 1) {
+          error = [NSError errorWithDomain:kOmniAuthTwitterErrorDomainConflictingAccounts code:kOmniAuthTwitterErrorCodeConflictingAccounts userInfo:@{NSLocalizedDescriptionKey : @"Could not save account: Conflicting accounts because there is more than a single twitter account."}];
+          account = nil;
+      }
       else
         account = nil;
     }

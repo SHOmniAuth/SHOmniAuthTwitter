@@ -7,6 +7,9 @@
 //
 
 static NSString * const kOmniAuthTwitterErrorDomain          = @"SHOmniAuthTwitter";
+static NSString * const kOmniAuthTwitterErrorDomainConflictingAccounts = @"SHOmniAuthTwitterConflictingAccounts";
+
+static const NSInteger kOmniAuthTwitterErrorCodeConflictingAccounts = 500;
 #import "SHOmniAuthProvider.h"
 @interface SHOmniAuthTwitter : NSObject
 <SHOmniAuthProvider>
