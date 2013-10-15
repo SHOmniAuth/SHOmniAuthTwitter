@@ -10,7 +10,7 @@
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 1
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
-#define COCOAPODS_VERSION_PATCH_AFNetworking 1
+#define COCOAPODS_VERSION_PATCH_AFNetworking 3
 
 // AFOAuth1Client
 #define COCOAPODS_POD_AVAILABLE_AFOAuth1Client
@@ -22,13 +22,13 @@
 #define COCOAPODS_POD_AVAILABLE_BlocksKit
 #define COCOAPODS_VERSION_MAJOR_BlocksKit 1
 #define COCOAPODS_VERSION_MINOR_BlocksKit 8
-#define COCOAPODS_VERSION_PATCH_BlocksKit 2
+#define COCOAPODS_VERSION_PATCH_BlocksKit 3
 
 // LUKeychainAccess
 #define COCOAPODS_POD_AVAILABLE_LUKeychainAccess
 #define COCOAPODS_VERSION_MAJOR_LUKeychainAccess 1
 #define COCOAPODS_VERSION_MINOR_LUKeychainAccess 0
-#define COCOAPODS_VERSION_PATCH_LUKeychainAccess 1
+#define COCOAPODS_VERSION_PATCH_LUKeychainAccess 2
 
 // NSData+Base64
 #define COCOAPODS_POD_AVAILABLE_NSData_Base64
@@ -52,7 +52,7 @@
 #define COCOAPODS_POD_AVAILABLE_SHOmniAuthTwitter
 #define COCOAPODS_VERSION_MAJOR_SHOmniAuthTwitter 0
 #define COCOAPODS_VERSION_MINOR_SHOmniAuthTwitter 2
-#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 8
+#define COCOAPODS_VERSION_PATCH_SHOmniAuthTwitter 10
 
 // TWReverseAuth
 #define COCOAPODS_POD_AVAILABLE_TWReverseAuth

@@ -13,11 +13,14 @@ BlocksKit can be added to a project using [CocoaPods](https://github.com/cocoapo
 ### Library
 
 * Download a release of BlocksKit.
+* Download [libffi](https://github.com/pandamonia/libffi-iOS/archive/master.zip) and extract contents to BlocksKit/libffi/
+* Run "Archive" in XCode.
+* By default the static library will be compiled to `~/Library/Developer/Xcode/DerivedData`.
 * Move libBlocksKit.a and Headers to your project's folder, preferably a subfolder like "Vendor".
 * In "Build Phases", Drag libBlocksKit.a into your target's "Link Binary With Libraries" build phase. 
 * In the build settings of your target or project, change "Other Linker Flags" to `-ObjC -all_load`. Make sure your app is linked with CoreGraphics, Foundation, MessageUI, and UIKit.
 * Change (or add) to "Header Search Paths" the relative path to BlocksKit's headers, like `$(SRCROOT)/Vendor/Headers`.
-* Insert `#import <BlocksKit/BlocksKit.h>`` in your project's prefix header.
+* Insert `#import <BlocksKit/BlocksKit.h>` in your project's prefix header.
 
 Documentation
 =============
