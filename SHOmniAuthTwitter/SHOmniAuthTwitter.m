@@ -106,11 +106,7 @@ static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
 
 #else
 
-    if ([SLComposeViewController class]) {
-        available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
-    } else {
-        available = [TWTweetComposeViewController canSendTweet];
-    }
+    if ([SLComposeViewController class]) available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
 
 #endif
 
@@ -263,7 +259,6 @@ static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
     if (granted || (error.code == ACErrorAccountNotFound && [error.domain isEqualToString:ACErrorDomain])) {
       [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
 
-        BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
         if ([error.domain isEqualToString:ACErrorDomain] && error.code == ACErrorAccountAlreadyExists) {
           NSArray * accounts = [accountStore accountsWithAccountType:accountType];
 
