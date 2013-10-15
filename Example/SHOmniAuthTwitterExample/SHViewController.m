@@ -42,7 +42,7 @@
 
   } onComplete:^(id<account> account, id response, NSError *error, BOOL isSuccess) {
     NSLog(@"%@", response);
-    [[UIAlertView SH_alertViewWithTitle:nil withMessage:response] show];
+    [[UIAlertView SH_alertViewWithTitle:nil withMessage:[response description]] show];
   }];
 	
 }
