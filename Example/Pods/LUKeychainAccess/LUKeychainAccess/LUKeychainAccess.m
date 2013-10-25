@@ -8,6 +8,21 @@
   return [[self alloc] init];
 }
 
+- (id)init {
+  self = [super init];
+  if (!self) return nil;
+
+  _accessibilityState = LUKeychainAccessAttrAccessibleWhenUnlocked;
+
+  return self;
+}
+
+- (void)deleteAll {
+  NSMutableDictionary *query = [NSMutableDictionary dictionary];
+  query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+  SecItemDelete((__bridge CFDictionaryRef)query);
+}
+
 #pragma mark - Getters
 
 - (BOOL)boolForKey:(NSString *)key {
@@ -128,6 +143,31 @@
 
 #pragma mark - Private Methods
 
+- (CFTypeRef)accessibilityStateCFType {
+  switch (self.accessibilityState) {
+    case LUKeychainAccessAttrAccessibleAfterFirstUnlock:
+      return kSecAttrAccessibleAfterFirstUnlock;
+
+    case LUKeychainAccessAttrAccessibleAfterFirstUnlockThisDeviceOnly:
+      return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
+
+    case LUKeychainAccessAttrAccessibleAlways:
+      return kSecAttrAccessibleAlways;
+
+    case LUKeychainAccessAttrAccessibleAlwaysThisDeviceOnly:
+      return kSecAttrAccessibleAlwaysThisDeviceOnly;
+
+    case LUKeychainAccessAttrAccessibleWhenUnlocked:
+      return kSecAttrAccessibleWhenUnlocked;
+
+    case LUKeychainAccessAttrAccessibleWhenUnlockedThisDeviceOnly:
+      return kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
+
+    default:
+      return kSecAttrAccessibleWhenUnlocked;
+  }
+}
+
 - (void)deleteObjectForKey:(NSString *)key {
   if (key == nil) {
     return;
@@ -140,6 +180,7 @@
 - (NSMutableDictionary *)queryDictionaryForKey:(NSString *)key {
   NSMutableDictionary *query = [NSMutableDictionary dictionary];
   query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+  query[(__bridge id)kSecAttrAccessible] = (__bridge id)[self accessibilityStateCFType];
 
   NSData *encodedIdentifier = [key dataUsingEncoding:NSUTF8StringEncoding];
   query[(__bridge id)kSecAttrAccount] = encodedIdentifier;

@@ -8,8 +8,9 @@
 
 #import "SHViewController.h"
 #import "SHOmniAuthTwitter.h"
-#import "UIActionSheet+BlocksKit.h"
-#import "NSArray+BlocksKit.h"
+#import "UIActionSheet+SHActionSheetBlocks.h"
+#import "UIAlertView+SHAlertViewBlocks.h"
+#import "NSArray+SHFastEnumerationProtocols.h"
 @interface SHViewController ()
 
 @end
@@ -19,9 +20,9 @@
 -(void)viewDidAppear:(BOOL)animated; {
   [super viewDidAppear:animated];
   [SHOmniAuthTwitter performLoginWithListOfAccounts:^(NSArray *accounts, SHOmniAuthAccountPickerHandler pickAccountBlock) {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:@"Pick twitter account"];
-    [accounts each:^(id<account> account) {
-      [actionSheet addButtonWithTitle:account.username handler:^{
+    UIActionSheet * actionSheet = [UIActionSheet SH_actionSheetWithTitle:@"Pick your twitter account"];
+    [accounts SH_each:^(id<account> account) {
+      [actionSheet SH_addButtonWithTitle:account.username withBlock:^(NSInteger theButtonIndex) {
         pickAccountBlock(account);
       }];
     }];
@@ -31,7 +32,7 @@
     else
       buttonTitle = @"Connect with Twitter";
     
-    [actionSheet addButtonWithTitle:buttonTitle handler:^{
+    [actionSheet SH_addButtonWithTitle:buttonTitle withBlock:^(NSInteger theButtonIndex) {
       pickAccountBlock(nil);
     }];
     
@@ -41,6 +42,7 @@
 
   } onComplete:^(id<account> account, id response, NSError *error, BOOL isSuccess) {
     NSLog(@"%@", response);
+    [[UIAlertView SH_alertViewWithTitle:nil withMessage:[response description]] show];
   }];
 	
 }

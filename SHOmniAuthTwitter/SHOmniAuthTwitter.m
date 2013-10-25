@@ -20,6 +20,33 @@
 
 #define NSNullIfNil(v) (v ? v : [NSNull null])
 
+//Why isn't this public from AF... >_>
+
+static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (queryString) {
+        NSScanner *parameterScanner = [[NSScanner alloc] initWithString:queryString];
+        NSString *name = nil;
+        NSString *value = nil;
+        
+        while (![parameterScanner isAtEnd]) {
+            name = nil;
+            [parameterScanner scanUpToString:@"=" intoString:&name];
+            [parameterScanner scanString:@"=" intoString:NULL];
+            
+            value = nil;
+            [parameterScanner scanUpToString:@"&" intoString:&value];
+            [parameterScanner scanString:@"&" intoString:NULL];
+            
+            if (name && value) {
+                [parameters setValue:[value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:[name stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }
+        }
+    }
+    
+    return parameters;
+}
+
 
 @interface SHOmniAuthTwitter ()
 +(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse;
@@ -79,11 +106,7 @@
 
 #else
 
-    if ([SLComposeViewController class]) {
-        available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
-    } else {
-        available = [TWTweetComposeViewController canSendTweet];
-    }
+    if ([SLComposeViewController class]) available = [SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter];
 
 #endif
 
@@ -112,8 +135,10 @@
                                                           providerValue:SHOmniAuthProviderValueScope
                                                           forProvider:self.provider]
                                                  success:^(AFOAuth1Token *accessToken, id responseObject) {
-
-                                                   [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret
+                                                     NSDictionary * response = SHParametersFromQueryString([[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+                                                     
+                                                     
+                                                     [self saveTwitterAccountWithToken:accessToken.key andSecret:accessToken.secret withScreenName:[NSString stringWithFormat:@"%@%@", @"@", response[@"screen_name"]]
                                                                withCompletionHandler:^(ACAccount *account, NSError *error) {
                                                                  if(account)
                                                                    [self performReverseAuthForAccount:account withBlock:completionBlock];
@@ -216,6 +241,7 @@
 }
 
 +(void)saveTwitterAccountWithToken:(NSString *)theToken andSecret:(NSString *)theSecret
+                    withScreenName:(NSString *)theScreenName
              withCompletionHandler:(void (^)(ACAccount * account, NSError * error))onCompletionBlock; {
 
   ACAccountStore * accountStore  =  [[ACAccountStore alloc] init];
@@ -233,27 +259,34 @@
     if (granted || (error.code == ACErrorAccountNotFound && [error.domain isEqualToString:ACErrorDomain])) {
       [accountStore saveAccount:account withCompletionHandler:^(BOOL success, NSError *error) {
 
-        BOOL hasSavedAccount = [accountStore accountsWithAccountType:accountType].count > 0;
         if ([error.domain isEqualToString:ACErrorDomain] && error.code == ACErrorAccountAlreadyExists) {
           NSArray * accounts = [accountStore accountsWithAccountType:accountType];
-          // Only return an account if we're sure the account is the matching account
-          if(accounts.count == 1)
-            account = accounts[0];
-          else if (accounts.count > 1) {
-            error = [NSError errorWithDomain:kOmniAuthTwitterErrorDomainConflictingAccounts code:kOmniAuthTwitterErrorCodeConflictingAccounts userInfo:@{NSLocalizedDescriptionKey : @"Could not save account: Conflicting accounts because there is more than a single twitter account."}];
-            account = nil;
-          }
-          else account = nil;
-        } else if (success == NO) {
-          account = nil;
+
+          [accounts enumerateObjectsUsingBlock:^(ACAccount * obj, NSUInteger idx, BOOL *stop) {
+              
+              if([obj.accountDescription isEqualToString:theScreenName]) {
+                  account = obj;
+                  *stop = YES;
+              }
+              else account = nil;
+          }];
+            
+            if (account == nil && accounts.count == 0)
+                error = [NSError errorWithDomain:kOmniAuthTwitterErrorDomainConflictingAccounts
+                                            code:kOmniAuthTwitterErrorCodeConflictingAccounts
+                                        userInfo:@{NSLocalizedDescriptionKey : @"Could not save account: Conflicting accounts because there is more than a single twitter account."}
+                         ];
+
+          
         }
+        else if (success == NO) account = nil;
 
         dispatch_async(dispatch_get_main_queue(), ^{ onCompletionBlock(account, error); });
 
       }];
-    } else {
-      dispatch_async(dispatch_get_main_queue(), ^{ onCompletionBlock(account, error); });
     }
+    else dispatch_async(dispatch_get_main_queue(), ^{ onCompletionBlock(account, error); });
+
   }];
 }
 
@@ -272,6 +305,7 @@
 +(NSString *)description; {
   return NSStringFromClass(self.class);
 }
+
 +(NSMutableDictionary *)authHashWithResponse:(NSDictionary *)theResponse; {
   NSString * name  = theResponse[@"name"];
   NSArray  * names = [name componentsSeparatedByString:@" "];
