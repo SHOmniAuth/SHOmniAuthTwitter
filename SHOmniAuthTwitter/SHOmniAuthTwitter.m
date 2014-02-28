@@ -203,10 +203,6 @@ static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
       NSDictionary * responseUser =  [NSJSONSerialization
                                       JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
 
-      NSMutableDictionary * fullResponse = responseUser.mutableCopy;
-      fullResponse[@"oauth_token_secret"] = response[@"oauth_token_secret"];
-      fullResponse[@"oauth_token"]        = response[@"oauth_token"];
-
       dispatch_async(dispatch_get_main_queue(), ^{
         if (responseUser == nil) {
           NSString * message = @"Bad response: Unknown error"; // Default message
@@ -229,7 +225,13 @@ static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
           responseError = [NSError errorWithDomain:kOmniAuthTwitterErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey : NSNullIfNil(message)}];
           completionBlock((id<account>)theAccount, nil, responseError, isSuccess);
         }
-        else completionBlock((id<account>)theAccount, [self authHashWithResponse:fullResponse.copy], error, isSuccess);
+        // Twitter response ok
+        else {
+          NSMutableDictionary * fullResponse = responseUser.mutableCopy;
+          fullResponse[@"oauth_token_secret"] = response[@"oauth_token_secret"];
+          fullResponse[@"oauth_token"]        = response[@"oauth_token"];
+          completionBlock((id<account>)theAccount, [self authHashWithResponse:fullResponse.copy], error, isSuccess);
+        }
 
       });
 
