@@ -28,6 +28,6 @@ Pod::Spec.new do |s|
   s.source_files = source_files
   s.requires_arc = true
   s.dependency  'TWReverseAuth',  '~>0.1.0'
-  s.dependency  'AFOAuth1Client', '~> 0.2.0'
+  s.dependency  'AFOAuth1Client', '~> 0.3.0'
   s.dependency  'SHOmniAuth',     '~> 0.2.0'
 end
