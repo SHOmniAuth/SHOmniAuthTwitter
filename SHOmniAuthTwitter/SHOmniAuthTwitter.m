@@ -192,7 +192,7 @@ static NSDictionary * SHParametersFromQueryString(NSString *queryString) {
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 
 
-      if(responseData == nil) {
+      if(responseData == nil || response[@"oauth_token_secret"] == nil || response[@"oauth_token"] == nil) {
         dispatch_async(dispatch_get_main_queue(), ^{
           completionBlock((id<account>)theAccount, nil, error, NO);
         });
